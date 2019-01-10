@@ -1,0 +1,28 @@
+import clr
+import sys
+clr.AddReference('ProtoGeometry')
+
+pyt_path = r'C:\Users\tyang\AppData\Local\Continuum\anaconda3\Lib'
+sys.path.append(pyt_path)
+
+import os
+appDataPath = r'C:\KPF'
+msPath = appDataPath + r"\Dynamo\1.0.0\Archi-lab_MantisShrimp\extra"
+rhPath = appDataPath + r"\Dynamo\1.0.0\Archi-lab_MantisShrimp\bin"
+rhDllPath = appDataPath + r"\Dynamo\1.0.0\Archi-lab_MantisShrimp\bin\RhinoCommon.dll"
+if msPath not in sys.path:
+	sys.path.Add(msPath)
+if rhPath not in sys.path:
+	sys.path.Add(rhPath)
+	clr.AddReferenceToFileAndPath(rhDllPath)
+
+from Autodesk.DesignScript.Geometry import *
+import Rhino as rc
+
+#The inputs to this node will be stored as a list in the IN variable.
+dataEnteringNode = IN
+path = str(IN[0])
+
+#read 3dm file
+#Assign your output to the OUT variable
+OUT = rc.FileIO.File3dm.Read(path)
